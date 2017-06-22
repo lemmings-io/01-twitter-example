@@ -10,7 +10,7 @@ A Twitter bot example in Clojure
 
   ![vagrant ssh](doc/images/vagrant-ssh.png)
 
-3. In the VM change into the the projects directory with `cd projects/` and start with the tutorial.
+3. In the VM, change into the projects directory with `cd projects/` and start with the tutorial.
 
   ![cd projects](doc/images/cd-projects.png)
 
@@ -29,7 +29,7 @@ A Twitter bot example in Clojure
   Start the nREPL server with `lein repl :headless :host 0.0.0.0 :port 7888` as described in the [Clojure and Atom Editor Setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4)
 
  ![run nREPL server](doc/images/nrepl-server.png)
- 
+
 6. Connect to Atom's nREPL
 
  ![nrepl-connection-successful](doc/images/nrepl-connection-successful.png)
@@ -46,9 +46,9 @@ Alternatively to the step-by-step tutorial you can download the finished project
 
   ```
   {:dev {:env {:app-consumer-key "<REPLACE>"
-             :app-consumer-secret "<REPLACE>"
-             :user-access-token "<REPLACE>"
-             :user-access-secret "<REPLACE>"}}}
+               :app-consumer-secret "<REPLACE>"
+               :user-access-token "<REPLACE>"
+               :user-access-secret "<REPLACE>"}}}
   ```
   ![profiles.clj](doc/images/profiles-clj.png)
 
@@ -59,9 +59,9 @@ Alternatively to the step-by-step tutorial you can download the finished project
 4. Test if your bot tweets in Atom's nREPL
 
   Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
-  
+
   Then run `(status-update)` in the nREPL to send a status update through your twitter account.
-  
+
   ![tweet via repl](doc/images/tweet-via-repl.png)
   ![twitter tweet](doc/images/twitter-tweet.png)
 
