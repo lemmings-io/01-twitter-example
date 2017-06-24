@@ -10,11 +10,11 @@ A Twitter bot example in Clojure
 
 2. Start a new vagrant session by opening a new terminal window and run `vagrant ssh`.
 
-  ![vagrant ssh](doc/images/vagrant-ssh.png)
+    ![vagrant ssh](doc/images/vagrant-ssh.png)
 
 3. In the VM, change into the projects directory with `cd projects/` and start with the tutorial.
 
-  ![cd projects](doc/images/cd-projects.png)
+    ![cd projects](doc/images/cd-projects.png)
 
 4. "Clone" the Twitter example into your Vagrant environment?
 
