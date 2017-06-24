@@ -6,7 +6,7 @@ A Twitter bot example in Clojure
 
 1. Make sure you have followed the [Lemmings Clojure and Atom Editor setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4).
 
-2. Start a new vagrant session by opening a new terminal window and run `vagrant ssh`.
+2. Start a new vagrant session by opening a new [terminal](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) window (on Windows you can use [Git BASH](https://git-for-windows.github.io/)) and run `vagrant ssh`.
 
     ![vagrant ssh](doc/images/vagrant-ssh.png)
 
@@ -58,11 +58,11 @@ A Twitter bot example in Clojure
     However, you probably want to personalise your tweets now :)
 
     In your `core.clj` you'll find two lists: `templates.cls` (the skeleton of your tweets) and `blanks.cls` (the strings you'll fill the blanks with). You can replace these strings with your own, just remember to keep the `___`.
-    
+
     You can test the generated sentences in your REPL following these steps:
 
     - Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
-    
+
         ![repl-ns](doc/images/repl-ns.png)
 
     - Run `(generate-sentence)`.
