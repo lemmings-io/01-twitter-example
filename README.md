@@ -58,8 +58,18 @@ A Twitter bot example in Clojure
     However, you probably want to personalise your tweets now :)
 
     In your `core.clj` you'll find two lists: `templates.cls` (the skeleton of your tweets) and `blanks.cls` (the strings you'll fill the blanks with). You can replace these strings with your own, just remember to keep the `___`.
+    
+    You can test the generated sentences in your REPL following these steps:
 
-9. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
+    - Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
+    
+        ![repl-ns](doc/images/repl-ns.png)
+
+    - Run `(generate-sentence)`.
+
+    - Be amazed by your bot's creativity!
+
+9. Let's bring it to life! Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
 
     You can find instructions for signing up for Twitter and getting these tokens in the [Twitter Bot example](http://howistart.org/posts/clojure/1/) in the section *Hooking the bot up to Twitter*.
 
