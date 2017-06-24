@@ -2,6 +2,7 @@
 profiles.clj
 .lein-env
 pom.properties
+.lein-repl-history
 
 # nrepl specific
 .nrepl-port

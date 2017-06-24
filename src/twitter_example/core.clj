@@ -1,86 +1,68 @@
 (ns twitter-example.core
  (:require [clojure.set]
-           [clojure.string]
+           [clojure.string :as s]
            [clj-http.client :as client]
            [overtone.at-at :as overtone]
            [twitter.api.restful :as twitter]
            [twitter.oauth :as twitter-oauth]
            [environ.core :refer [env]]))
 
-(defn word-chain [word-transition]
-  (reduce (fn [r t] (merge-with clojure.set/union r
-                                (let [[a b c] t]
-                                  {[a b] (if c #{c} #{})})))
-          {}
-          word-transition))
+; We are generating tweets based on templates, similar to the game Apples to
+; Apples: https://en.wikipedia.org/wiki/Apples_to_Apples
+; We start with two lists of strings: One list contains string with blank
+; spaces, the other list is used to fill in these spaces.
 
-(defn text->word-chain [s]
-  (let [words (clojure.string/split s #"[\s|\n]")
-        word-transitions (partition-all 3 1 words)]
-    (word-chain word-transitions)))
 
-(defn chain->text [chain]
-  (apply str (interpose " " chain)))
+; We define the "templates" - these strings are the skeleton of the tweet
+; We will later replace every occurence of ___ with a string that we chose
+; randomly from the list "blanks".
+(def templates ["I hear he eats ___"
+                "The police arrested ___ in connection with the robbery."
+                "I don't know if ___ will visit us next Sunday."
+                "She sent a card to ___."
+                "Doing that sort of thing makes you look like ___."])
 
-(defn walk-chain [prefix chain result]
-  (let [suffixes (get chain prefix)]
-    (if (empty? suffixes)
-     result
-     (let [suffix (first (shuffle suffixes))
-           new-prefix [(last prefix) suffix]
-           result-with-spaces (chain->text result)
-           result-char-count (count result-with-spaces)
-           suffix-char-count (+ 1 (count suffix))
-           new-result-char-count (+ result-char-count suffix-char-count)]
-      (if (>= new-result-char-count 140)
-       result
-       (recur new-prefix chain (conj result suffix)))))))
+; Next we define the "blanks"
+(def blanks ["a Haunted House"
+             "Rich Hickey"
+             "a purple dinosaur"
+             "Junk Mail"
+             "Pirates"])
 
-(defn generate-text
-  [start-phrase word-chain]
-  (let [prefix (clojure.string/split start-phrase #" ")
-        result-chain (walk-chain prefix word-chain prefix)
-        result-text (chain->text result-chain)]
-   result-text))
+; generate-sentence returns a random sentence, built by choosing one template
+; string at random and filling in the blank space (___) with a randomly chosen
+; string from the blanks list.
+(defn generate-sentence []
+  (let [template (rand-nth templates)
+        blank (rand-nth blanks)]
+      (s/replace template "___" blank)))
 
-(defn process-file [fname]
-  (text->word-chain
-    (slurp (clojure.java.io/resource fname))))
+; Tweets are limited to 140 characters. We might randomly generate a sentence
+; with more than 140 characters, which would be rejected by Twitter.
+; So we check if our generated sentence is longer than 140 characters, an if
+; it is we try again.
+(defn tweet-text []
+  (let [tweet (generate-sentence)]
+    (if (<= (count tweet) 140)
+     tweet
+     (recur))))
 
-(def files ["fluffyrocketship2.txt" "fluffyrocketship.txt" "astronomy.txt" "theguide.txt"])
-(def functional-leary (apply merge-with clojure.set/union (map process-file files)))
+; We retrieve the twitter credentials from the profiles.clj file here.
+; In profiles.clj we defined the "env(ironment)" which we use here
+; to get the secret passwords we need.
+; Make sure you add your credentials in profiles.clj and not here!
+(def twitter-credentials (twitter-oauth/make-oauth-creds (env :app-consumer-key)
+                                                         (env :app-consumer-secret)
+                                                         (env :user-access-token)
+                                                         (env :user-access-secret)))
 
-(def prefix-list ["I will" "But if" "So I" "I was" "I am" "We also"
-                  "We have" "I can" "I never" "For you"
-                  "We need" "We will" "Now this"
-                  "You might" "This is" "Let me" "You better"])
-
-(defn end-at-last-punctuation [text]
-  (let [trimmed-to-last-punct (apply str (re-seq #"[\s\w]+[^.!?,]*[.!?,]" text))
-        trimmed-to-last-word (apply str (re-seq #".*[^a-zA-Z]+" text))
-        result-text (if (empty? trimmed-to-last-punct)
-                      trimmed-to-last-word
-                      trimmed-to-last-punct)
-        cleaned-text (clojure.string/replace result-text #"[,| ]$" ".")]
-    (clojure.string/replace cleaned-text #"\"" "'")))
-
-(defn tweet-text  []
-  (let [text (generate-text (-> prefix-list shuffle first) functional-leary)]
-    (end-at-last-punctuation text)))
-
-(def my-creds (twitter-oauth/make-oauth-creds (env :app-consumer-key)
-                                              (env :app-consumer-secret)
-                                              (env :user-access-token)
-                                              (env :user-access-secret)))
-
+; Sends the tweet.
 (defn status-update []
-  (let [tweet (tweet-text)]
-    (println "generate tweet is :" tweet)
-    (println "char count is:" (count tweet))
-    (when (not-empty tweet)
-      (try (twitter/statuses-update :oauth-creds my-creds
-                                  :params {:status tweet})
-           (catch Exception e (println "Oh no! " (.getMessage e)))))))
+ (let [text (tweet-text)]
+   (when (not-empty text)
+     (try (twitter/statuses-update :oauth-creds twitter-credentials
+                                   :params {:status text})
+          (catch Exception e (println "Something went wrong: " (.getMessage e)))))))
 
 (def my-pool (overtone/mk-pool))
 
