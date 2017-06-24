@@ -65,8 +65,6 @@ A Twitter bot example in Clojure
 
 4. Test if your bot tweets in Atom's nREPL
 
-    Connect
-
     Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
 
     Then run `(status-update)` in the nREPL to send a status update through your twitter account.
