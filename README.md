@@ -42,8 +42,9 @@ A Twitter bot example in Clojure
 
    ![nrepl-connection-successful](doc/images/nrepl-connection-successful.png)
 
+7. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
 
-7. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom:
+    You can find instructions for signing up for Twitter and getting these tokens in the [Twitter Bot example] in the section *Hooking the bot up to Twitter*.
 
     ```clojure
     {:dev {:env {:app-consumer-key "<REPLACE>"
