@@ -6,8 +6,6 @@ A Twitter bot example in Clojure
 
 1. Make sure you have followed the [Lemmings Clojure and Atom Editor setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4).
 
-1. To get familiar with the programming language Clojure and the development workflow, first off follow the step-by-step tutorial [Twitter Bot Example in Clojure](http://howistart.org/posts/clojure/1). Skip the steps for setting up the Emacs Editor and testing in the tutorial.
-
 2. Start a new vagrant session by opening a new terminal window and run `vagrant ssh`.
 
     ![vagrant ssh](doc/images/vagrant-ssh.png)
@@ -38,9 +36,20 @@ A Twitter bot example in Clojure
 
    ![run nREPL server](doc/images/nrepl-server.png)
 
-6. Connect to Atom's nREPL
+6. Connect to Atom's nREPL.
+
+    Look at the [Lemmings Clojure guide](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4)
+    for detailled instructions.
 
    ![nrepl-connection-successful](doc/images/nrepl-connection-successful.png)
+
+6. Turn on the "Autoeval" feature of Proto Repl:
+
+    Open the `core.clj` file in Atom, then open Atom command palette and search
+    for "Proto Repl: Autoeval file" and press return.
+
+    This feature will take care to synchronize your code in the `core.clj` file
+    with the Clojure REPL.
 
 7. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
 
@@ -54,11 +63,9 @@ A Twitter bot example in Clojure
     ```
     ![profiles.clj](doc/images/profiles-clj.png)
 
-3. Start the twitter bot inside Vagrant:
-
-    In the Terminal where you are connected to Vagrant (`vagrant ssh`) run `lein trampoline run` to start the local server.
-
 4. Test if your bot tweets in Atom's nREPL
+
+    Connect
 
     Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
 
@@ -67,6 +74,9 @@ A Twitter bot example in Clojure
     ![tweet via repl](doc/images/tweet-via-repl.png)
     ![twitter tweet](doc/images/twitter-tweet.png)
 
+3. Start the twitter bot inside Vagrant:
+
+    In the Terminal where you are connected to Vagrant (`vagrant ssh`) run `lein trampoline run` to start a Clojure system that will tweet every 2 hours.
 
 ## Credit
 
