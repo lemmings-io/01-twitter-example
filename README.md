@@ -43,7 +43,7 @@ A Twitter bot example in Clojure
 
    ![nrepl-connection-successful](doc/images/nrepl-connection-successful.png)
 
-6. Turn on the "Autoeval" feature of Proto Repl:
+7. Turn on the "Autoeval" feature of Proto Repl:
 
     Open the `core.clj` file in Atom, then open Atom command palette and search
     for "Proto Repl: Autoeval file" and press return.
@@ -51,7 +51,15 @@ A Twitter bot example in Clojure
     This feature will take care to synchronize your code in the `core.clj` file
     with the Clojure REPL.
 
-7. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
+8. **Artistic Tweaking**
+
+    You can see the lemmings bot in action [here](https://twitter.com/betalemming).
+
+    However, you probably want to personalise your tweets now :)
+
+    In your `core.clj` you'll find two lists: `templates.cls` (the skeleton of your tweets) and `blanks.cls` (the strings you'll fill the blanks with). You can replace these strings with your own, just remember to keep the `___`.
+
+9. Provide your Twitter API tokens for local development by creating a file called `profiles.clj` in `01-twitter-example` with Atom.
 
     You can find instructions for signing up for Twitter and getting these tokens in the [Twitter Bot example](http://howistart.org/posts/clojure/1/) in the section *Hooking the bot up to Twitter*.
 
