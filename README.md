@@ -35,6 +35,19 @@ A Twitter bot example in Clojure
     Start the nREPL server with `lein repl :headless :host 0.0.0.0 :port 7888` as described in the [Clojure and Atom Editor Setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4)
 
    ![run nREPL server](doc/images/nrepl-server.png)
+   
+6. Open your project in Atom.
+   
+   Start Atom and open the folder `clojure-master/projects/01-twitter-example`
+   as an Atom project.
+   
+   There's two things to know about Atom:
+   
+   1. Ctrl-P on Windows and Cmd-P on macOS opens a file search. You can use
+   this to jump to any file in your project quickly.
+   
+   2. Ctrl-Shift-P on Windows and Cmd-Shift-P on macOS opens the
+   Atom Command Palette. You use it to start the nREPL or enable Autoeval.
 
 6. Connect to Atom's nREPL.
 
@@ -47,6 +60,10 @@ A Twitter bot example in Clojure
 
     Open the `core.clj` file in Atom, then open Atom command palette and search
     for "Proto Repl: Autoeval file" and press return.
+    
+    *Hint*: You can find the `core.clj` file in `src/twitter_example/core.clj`,
+    but if you press Ctrl-P on Windows or Cmd-P on macOS you can easily search
+    through all files in your project.
 
     This feature will take care to synchronize your code in the `core.clj` file
     with the Clojure REPL.
@@ -57,7 +74,7 @@ A Twitter bot example in Clojure
 
     However, you probably want to personalise your tweets now :)
 
-    In your `core.clj` you'll find two lists: `templates.cls` (the skeleton of your tweets) and `blanks.cls` (the strings you'll fill the blanks with). You can replace these strings with your own, just remember to keep the `___`.
+    In your `core.clj` you'll find two lists: `templates` (the skeleton of your tweets) and `blanks` (the strings you'll fill the blanks with). You can replace these strings with your own, just remember to keep the `___`.
 
     You can test the generated sentences in your REPL following these steps:
 
