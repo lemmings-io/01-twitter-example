@@ -16,7 +16,7 @@ A Twitter bot example in Clojure
 
     ![cd projects](doc/images/cd-projects.png)
 
-4. "Clone" the Twitter example into your Vagrant environment?
+4. "Clone" the Twitter example into your Vagrant environment
 
     ```shell
     git clone https://github.com/lemmings-io/01-twitter-example.git
