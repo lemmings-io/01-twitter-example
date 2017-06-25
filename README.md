@@ -102,7 +102,7 @@ A Twitter bot example in Clojure
 
     Run `(ns twitter-example.core)` to initialize your app's namespace in the nREPL.
 
-    Then run `(status-update)` in the nREPL to send a status update through your twitter account.
+    Then run `(tweet-sentence)` in the nREPL to send a status update through your twitter account.
 
     ![tweet via repl](doc/images/tweet-via-repl.png)
     ![twitter tweet](doc/images/twitter-tweet.png)
