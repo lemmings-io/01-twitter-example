@@ -37,10 +37,6 @@
         blank (rand-nth blanks)]
       (s/replace template "___" blank)))
 
-; Generate a sentence and tweet it.
-(defn tweet-sentence []
-  (tweet (generate-sentence)))
-
 ; We retrieve the twitter credentials from the profiles.clj file here.
 ; In profiles.clj we defined the "env(ironment)" which we use here
 ; to get the secret passwords we need.
@@ -58,7 +54,12 @@
   (when (and (not-empty text) (<= (count text) 140))
    (try (twitter/statuses-update :oauth-creds twitter-credentials
                                  :params {:status text})
-        (catch Exception e (println "Something went wrong: " (.getMessage e))))))
+        (catch Exception e (println "Something went wrong: " (.getMessage e)))
+
+; Generate a sentence and tweet it.
+(defn tweet-sentence []
+  (tweet (generate-sentence))))))
+        
 
 (def my-pool (overtone/mk-pool))
 
