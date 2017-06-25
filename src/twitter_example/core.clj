@@ -54,17 +54,17 @@
   (when (and (not-empty text) (<= (count text) 140))
    (try (twitter/statuses-update :oauth-creds twitter-credentials
                                  :params {:status text})
-        (catch Exception e (println "Something went wrong: " (.getMessage e)))
+        (catch Exception e (println "Something went wrong: " (.getMessage e))))))
 
 ; Generate a sentence and tweet it.
 (defn tweet-sentence []
-  (tweet (generate-sentence))))))
-        
+  (tweet (generate-sentence)))
+
 
 (def my-pool (overtone/mk-pool))
 
 (defn -main [& args]
   ;; every 2 hours
   (println "Started up")
-  (println (tweet-text))
+  (println (tweet-sentence))
   (overtone/every (* 1000 60 60 2) #(println (tweet-sentence)) my-pool))
