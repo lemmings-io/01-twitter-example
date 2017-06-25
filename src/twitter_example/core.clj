@@ -37,15 +37,9 @@
         blank (rand-nth blanks)]
       (s/replace template "___" blank)))
 
-; Tweets are limited to 140 characters. We might randomly generate a sentence
-; with more than 140 characters, which would be rejected by Twitter.
-; So we check if our generated sentence is longer than 140 characters, an if
-; it is we try again.
-(defn tweet-text []
-  (let [tweet (generate-sentence)]
-    (if (<= (count tweet) 140)
-     tweet
-     (recur))))
+; Generate a sentence and tweet it.
+(defn tweet-sentence []
+  (tweet (generate-sentence)))
 
 ; We retrieve the twitter credentials from the profiles.clj file here.
 ; In profiles.clj we defined the "env(ironment)" which we use here
@@ -56,13 +50,15 @@
                                                          (env :user-access-token)
                                                          (env :user-access-secret)))
 
-; Sends the tweet.
-(defn status-update []
- (let [text (tweet-text)]
-   (when (not-empty text)
-     (try (twitter/statuses-update :oauth-creds twitter-credentials
-                                   :params {:status text})
-          (catch Exception e (println "Something went wrong: " (.getMessage e)))))))
+; Tweets are limited to 140 characters. We might randomly generate a sentence
+; with more than 140 characters, which would be rejected by Twitter.
+; So we check if our generated sentence is longer than 140 characters, and
+; don't tweet if so.
+(defn tweet [text]
+  (when (and (not-empty text) (<= (count text) 140))
+   (try (twitter/statuses-update :oauth-creds twitter-credentials
+                                 :params {:status text})
+        (catch Exception e (println "Something went wrong: " (.getMessage e))))))
 
 (def my-pool (overtone/mk-pool))
 
@@ -70,4 +66,4 @@
   ;; every 2 hours
   (println "Started up")
   (println (tweet-text))
-  (overtone/every (* 1000 60 60 2) #(println (status-update)) my-pool))
+  (overtone/every (* 1000 60 60 2) #(println (tweet-sentence)) my-pool))
