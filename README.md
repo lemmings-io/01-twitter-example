@@ -6,9 +6,9 @@ A Twitter bot example in Clojure
 
 1. Make sure you have followed the [Lemmings Clojure and Atom Editor setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4).
 
-2. Start a new vagrant session by opening a new [terminal](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) window (on Windows you can use [Git BASH](https://git-for-windows.github.io/)) and run `vagrant ssh`.
+2. Start a new vagrant session by opening a new [terminal](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) window (on Windows you can use [Git BASH](https://git-for-windows.github.io/)), navigate to the 'clojure-master' directory you downloaded [before](https://github.com/lemmings-io/clojure) which contains the `Vagrantfile` and run `vagrant ssh`.
 
-    ![vagrant ssh](doc/images/vagrant-ssh.png)
+    ![vagrant ssh](doc/images/run-vagrant-ssh.png)
 
 3. In the VM, change into the projects directory with `cd projects/` and start with the tutorial.
 
@@ -26,26 +26,28 @@ A Twitter bot example in Clojure
     cd 01-twitter-example
     ```
 
+    ![cd twitter-example](doc/images/cd-twitter-example.png)
+
 5. Start the nREPL server
 
-    Start another VM session by opening a new terminal window and run `vagrant ssh`.
+    Start another VM session by opening a new terminal window (Cmd-T) and run `vagrant ssh`.
 
-    Navigate to the project folder you just created with `cd projects/<your-project-name>`.
+    Navigate to the project folder you just created with `cd projects/01-twitter-example`.
 
     Start the nREPL server with `lein repl :headless :host 0.0.0.0 :port 7888` as described in the [Clojure and Atom Editor Setup](https://lemmings.io/clojure-and-atom-editor-setup-40f8f09237b4)
 
    ![run nREPL server](doc/images/nrepl-server.png)
-   
+
 6. Open your project in Atom.
-   
+
    Start Atom and open the folder `clojure-master/projects/01-twitter-example`
    as an Atom project.
-   
+
    There's two things to know about Atom:
-   
+
    1. Ctrl-P on Windows and Cmd-P on macOS opens a file search. You can use
    this to jump to any file in your project quickly.
-   
+
    2. Ctrl-Shift-P on Windows and Cmd-Shift-P on macOS opens the
    Atom Command Palette. You use it to start the nREPL or enable Autoeval.
 
@@ -60,7 +62,7 @@ A Twitter bot example in Clojure
 
     Open the `core.clj` file in Atom, then open Atom command palette and search
     for "Proto Repl: Autoeval file" and press return.
-    
+
     *Hint*: You can find the `core.clj` file in `src/twitter_example/core.clj`,
     but if you press Ctrl-P on Windows or Cmd-P on macOS you can easily search
     through all files in your project.
